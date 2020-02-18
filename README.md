@@ -1,1 +1,1 @@
-We will try to run a rocket sim out of this directory.
+We will run a rocket sim out of this directory.
