@@ -7,6 +7,7 @@ using namespace std;
 class Planet {
     public:
         float mass,radius;
+        float planetPosition[3];
         int starting();
 };
 
