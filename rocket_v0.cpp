@@ -5,7 +5,7 @@
 #include "utility.h"
 using namespace std;
 
-namespace Earth 
+namespace Earth // This will be better off being a struct.
 	{
 		float mass = 5.972e24;
 		float radius = 6.371e6;
@@ -14,6 +14,7 @@ namespace Earth
 
 int main() 
 {
+	bool flightMode = true;
 	float* gravityVector;
 	float position[3] = {6.371e6, 2.5e7, 0};
 	gravityVector = gravityCalculator(position, Earth::planetPosition, Earth::mass, Earth::radius);

@@ -19,7 +19,7 @@ float * gravityCalculator(float position[3], float planetPosition[3], float plan
 		}
 	}
 	else {
-		cout << "Error: Rocket is inside the planet's surface. results will be wrong." << endl; 
+		cout << "Error: Rocket is inside the planet's surface. Results will be wrong." << endl; 
 	}
 	return gravityVector; // in N
 }										
