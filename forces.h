@@ -2,5 +2,6 @@
 #define FORCES_H
 #include <iostream>
 using namespace std;
-float * gravityCalculator(float position[3], float planetPosition[3], float planetMass, float planetRadius);
+float * gravityAcc(float position[3], float planetPosition[3], float planetMass, float planetRadius);
+float * thrustForce(float rocketMass, float fuelMass, float direction[3]);
 #endif

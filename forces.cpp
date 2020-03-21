@@ -5,7 +5,7 @@
 #include <cmath>
 using namespace std;
 
-float * gravityCalculator(float position[3], float planetPosition[3], float planetMass, float planetRadius) {
+float * gravityAcc(float position[3], float planetPosition[3], float planetMass, float planetRadius) {
 
 	const float newt_cst = 6.674e-11; // Newton's gravitational constant
 	float* gravityVector = new float[3]; 
@@ -23,3 +23,20 @@ float * gravityCalculator(float position[3], float planetPosition[3], float plan
 	}
 	return gravityVector; // in N
 }										
+
+
+// Some constants & features in this function will change as the program develops
+// This function will matter more when we introduce a gimbaled engine.
+float * thrustForce(float rocketMass, float fuelMass, float direction[3]) {
+	float thrustArea = 1.0; // in sq meters. Area where propulsive gas comes out
+	float pressureExhaust = 120000.0; // in Pa
+	float atmosphericPressure = 101325.0; // in Pa
+	float exhaustVelocity = 1000; // in m/s, it's the modulus
+	float massFlowRate = 0.5; // kg/s, we will assume it's constant for now
+	float* thrustVector = new float[3];
+
+	for (int n = 0; n < 3; n++) {
+		*(thrustVector + n) = direction[n]*((pressureExhaust - atmosphericPressure)*thrustArea + exhaustVelocity*massFlowRate);
+	}
+	return thrustVector;
+}
