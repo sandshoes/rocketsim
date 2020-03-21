@@ -1,22 +1,9 @@
 #include <iostream>
 #include <string>
 #include "forces.h"
-//#include "planets.h" has no use atm.
 #include "utility.h"
 #include "telemetry.h"
 using namespace std;
-
-// Good idea would be to write an initial configuration of constants that can
-// be used throughout the program. (e.g. atmospheric pressure, Newton's gravitational
-// constant, etc.)
-
-// Also would be good to have a rocket class to specify dimensions,
-// materials and features.
-
-//Config file would work great
-
-// All units must be SI!
-// Need to define a timestep
 
 namespace Earth // This will be better off being a struct.
 	{
@@ -30,24 +17,74 @@ int main()
 	bool flightMode = true;
 	float* gravityVector;
 	float* thrustVector;
-	float position[3] = {6.371e6, 0, 0}; // in m
+	
 	float direction[3] = {1, 0, 0}; // unitary vector
+	float position[3] = {6.371e6, 0, 0}; // in m
+	float velocity[3] = {0.0, 0, 0}; // in m/s
+
 	float rocketMass = 10; // in kg
 	float fuelMass = 5; // in kg
-	gravityVector = gravityAcc(position, Earth::planetPosition, Earth::mass, Earth::radius);
-	thrustVector = thrustForce(rocketMass, fuelMass, direction);
+	int count = 0;
+	float totalMass;
 
-	// while (flightMode) {
+	// gravityVector = gravityAcc(position, Earth::planetPosition, Earth::mass, Earth::radius);
+	// thrustVector = thrustForce(rocketMass, fuelMass, direction);
 
-	// }
+	while (flightMode) {
+		count += 1;
+		float forces[3] = {0, 0, 0}; // in N
+		float acc[3] = {0.0, 0, 0}; // in m/s^2
+		fuelMass = forceUpdate(forces, position, direction, fuelMass, rocketMass, Earth::planetPosition, Earth::mass, Earth::radius);	
+		totalMass = fuelMass + rocketMass;
+		accelerationUpdate(forces, acc, totalMass);
+		speedUpdate(velocity, acc);
+		positionUpdate(position, velocity, acc);
+		if (count < 1000) {
 
-	cout << *(gravityVector) << endl;
-	cout << *(gravityVector + 1) << endl;
-	cout << *(gravityVector + 2) << endl;
+			cout << "Total Mass" << endl;
+			cout << totalMass << endl;
 
-    cout << *(thrustVector) << endl;
-	cout << *(thrustVector + 1) << endl;
-	cout << *(thrustVector + 2) << endl;
+			cout << "Fuel Mass" << endl;
+			cout << fuelMass << endl;
+
+			cout << "Forces" << endl;
+			cout << forces[0] << endl;
+			cout << forces[1] << endl;
+			cout << forces[2] << endl;
+
+			cout << "Position" << endl;
+			cout << position[0] << endl;
+			cout << position[1] << endl;
+			cout << position[2] << endl;
+
+			cout << "Velocity" << endl;
+			cout << velocity[0] << endl;
+			cout << velocity[1] << endl;
+			cout << velocity[2] << endl;
+
+			cout << "Acceleration" << endl;
+			cout << acc[0] << endl;
+			cout << acc[1] << endl;
+			cout << acc[2] << endl;
+		}
+		flightMode = flightOn(position);
+		
+	}
+
+	cout << "Test finished" << endl;
 	
 	return 0;
 }
+
+
+// Good idea would be to write an initial configuration of constants that can
+// be used throughout the program. (e.g. atmospheric pressure, Newton's gravitational
+// constant, etc.)
+
+// Also would be good to have a rocket class to specify dimensions,
+// materials and features.
+
+//Config file would work great
+
+// All units must be SI!
+// Need to define a timestep
