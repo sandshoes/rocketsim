@@ -6,6 +6,7 @@ We will run a rocket sim out of this repository using mainly C++.
 - Execute ```./a.out```
 
 ## Things to do:
+- [ ] Organize the code appropriately.
 - [ ] Converter from cartesian coordinates to spherical, and the other way around.
 - [ ] Study how to collect & process information for the simulation
 - [ ] Add positional update and rocket thrust.
